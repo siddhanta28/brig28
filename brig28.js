@@ -1,9 +1,18 @@
-console.log("hello world")
-const { events } = require("brigadier")
+const { events, Job } = require("brigadier")
 
 events.on("exec", () => {
-  console.log("==> handling an 'exec' event")
-})
-events.on("push", () => {
-  console.log(" **** I'm a GitHub 'push' handler")
+  var hello = new Job("hello", "alpine:3.4")
+  hello.tasks = [
+    "echo Hello",
+    "echo World"
+  ]
+
+  var goodbye = new Job("goodbye", "alpine:3.4")
+  goodbye.tasks = [
+    "echo Goodbye",
+    "echo World"
+  ]
+
+  hello.run()
+  goodbye.run()
 })
